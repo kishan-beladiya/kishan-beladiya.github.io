@@ -1,0 +1,77 @@
+{
+	"basics": {
+		"name": "Kishan Beladiya",
+		"label": "Student",
+		"picture": "https://kishan-beladiya.github.io/kishan-beladiya.jpg",
+		"email": "2019kucp1077@iiitkota.ac.in",
+		"phone": "9328677153",
+		"website": "kishan-beladiya.github.io",
+		"summary": "Hi, I'm Kishan. Currently doing B.Tech at IIIT Kota in Computer Science department. My technical skills is frontend and backend development, Intermediate in Compititive Programming, Good at data structures and algorithms. i'm also good at Native Application development using Dart's framework - Flutter.",
+		"location": {
+			"address": "Near P.P. Savani School, Hirabaug - varachha road ,Surat - Gujarat",
+			"postalCode": "395006",
+			"city": "Surat",
+			"countryCode": "91",
+			"region": "Gujarat"
+		},
+		"profiles": [
+			{
+				"network": "Github",
+				"username": "kishan-beladiya",
+				"url": "https://www.github.com/kishan-beladiya/"
+			},
+			{
+				"network": "linkedin",
+				"username": "Kishan Beladiya",
+				"url": "https://www.linkedin.com/in/kishan-beladiya-6b6862198/"
+			},
+			{
+				"network": "Instagram",
+				"username": "kishan_beladiya_",
+				"url": "https://instagram.com/kishan_beladiya_"
+			}
+		]
+	},
+	"education": [{
+		"institution": "Indian Institute of Information technology,kota",
+		"area": "Engineering",
+		"studyType": "Bachelor (hons)",
+		"startDate": "01-08-2019",
+		"endDate": "01-07-2023",
+		"gpa": "7.50",
+		"courses": [
+			"Computer Science & Engineering"
+		]
+	}],
+	"publications": [
+        {
+            "title": "Restaurant Website | Freelancing work for 'sunisland.plate'",
+            "details": "Complete Restaurant Website for Online food order. I made this restaurant website using Django framework. Admin can Add, Remove and Update the item in website without having knowledge of the database.",
+            "link": "https://sunislandplate.herokuapp.com"
+	    },
+        {
+            "title": "WhatsApp Status Downloader | Native Application",
+            "details": "This Application helps user to download status from the WhatsApp. I also included other social networking sites, link instagram. This Application can save, share and also delete saved status. I published this application on Play Store and also solved some bugs that suggested by my application user",
+            "link": "https://play.google.com/store/apps/details?id=com.KB_Team.status_saver"
+	    }
+    ],
+	"skills": [
+        {
+            "level": "Master",
+            "keywords": ["C++","Django","HTML5", "CSS3", "Javascript"]
+	    },
+        {
+            "level": "Intermediate",
+            "keywords": ["Flutter","BootStrap","SQL"]
+	    },
+        {
+            "level": "Beginner",
+            "keywords": ["Python","Java","ReactJs"]
+	    }
+    ],
+	"interests": [{
+		"name": "Sports",
+		"keywords": ["Sketting"]
+	}],
+	"references": []
+}
