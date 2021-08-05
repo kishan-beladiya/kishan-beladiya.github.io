@@ -4,14 +4,14 @@
 		"label": "Student",
 		"picture": "https://kishan-beladiya.github.io/kishan-beladiya.jpg",
 		"email": "2019kucp1077@iiitkota.ac.in",
-		"phone": "9328677153",
+		"phone": "+91 9328677153",
 		"website": "kishan-beladiya.github.io",
 		"summary": "Hi, This is Kishan. Currently pursuing B.Tech at IIIT Kota in Computer Science department. My technical skills is frontend and backend development (mainly using Python's framework - Django), Intermediate in Compititive Programming, Good at data structures and algorithms. I'm also improving at Native Application development using Dart's framework - Flutter.",
 		"location": {
 			"address": "Near P.P. Savani School, Hirabaug - varachha road ,Surat - Gujarat",
 			"postalCode": "395006",
 			"city": "Surat",
-			"countryCode": "91",
+			"countryCode": "India",
 			"region": "Gujarat"
 		},
 		"profiles": [
@@ -51,14 +51,14 @@
 	    },
         {
             "title": "WhatsApp Status Downloader | Native Application",
-            "details": "This Application helps user to download status from the WhatsApp. I also included other social networking sites, link instagram. This Application can save, share and also delete saved status. I published this application on Play Store and also solved some bugs that suggested by my application user",
+            "details": "This Application helps user to download status from the WhatsApp. I also included other social networking sites, like instagram. This Application can save, share and also delete saved status. I published this application on Play Store and also solved some bugs that suggested by my application user",
             "link": "https://play.google.com/store/apps/details?id=com.KB_Team.status_saver"
 	    }
     ],
 	"skills": [
         {
             "level": "Master",
-            "keywords": ["C++","Django","HTML5", "CSS3", "Javascript"]
+            "keywords": ["C++","Django","HTML5", "CSS3", "Javascript","Flutter","BootStrap","SQL","Python","Java","ReactJs"]
 	    },
         {
             "level": "Intermediate",
