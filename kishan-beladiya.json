@@ -24,7 +24,7 @@
 				"network": "linkedin",
 				"username": "Kishan Beladiya",
 				"url": "https://www.linkedin.com/in/kishan-beladiya-6b6862198/"
-			},
+			}
 		]
 	},
 	"education": [{
@@ -38,16 +38,12 @@
 			"Computer Science & Engineering"
 		]
 	}],
-	"publications": [{
-		"title": "",
-		"details": "",
-		"link": ""
-	}],
+	"publications": [],
 	"skills": [
        	{
             "level": "Master",
             "keywords": ["C++","HTML5", "CSS3", "Javascript"]
-	},
+	}
     ],
 	"interests": [{
 		"name": "Sports",
