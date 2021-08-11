@@ -38,7 +38,11 @@
 			"Computer Science & Engineering"
 		]
 	}],
-	"publications": [],
+	"publications": [{
+		"title": "",
+		"details": "",
+		"link": ""
+	}],
 	"skills": [
        	{
             "level": "Master",
