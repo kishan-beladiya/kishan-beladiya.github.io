@@ -1,0 +1,1112 @@
+<html><head>
+
+
+    <style>@charset "UTF-8";
+    /* these are overridden inline in the mustache compilation */
+    :root {
+      --background-color: #ffffff;
+      --poweredbybg-color: #f0f0f0;
+      --text-color: #000000;
+      --link-color: #008DD5;
+      --linkhover-color: #005A88;
+      --main-font: "Arvo";
+    }
+    
+    .editing-active {
+      transition: all 0.2s ease-in-out;
+      border: 3px dotted rgba(0, 0, 0, 0.2);
+    }
+    .editing-active:hover {
+      border-color: rgba(31, 175, 132, 0.8);
+      background-color: rgba(31, 175, 132, 0.3);
+      cursor: pointer;
+    }
+    
+    .placeholder-text {
+      font-style: italic;
+      opacity: 0.6;
+    }
+    
+    * {
+      font-family: var(--main-font);
+      font-weight: 400;
+      color: var(--text-color);
+    }
+    
+    body {
+      padding: 0;
+      margin: 0;
+      -webkit-text-size-adjust: 100%;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      -webkit-font-feature-settings: "pnum";
+      font-feature-settings: "pnum";
+      font-variant-numeric: proportional-nums;
+      position: relative;
+      background: #fff;
+    }
+    
+    a {
+      color: var(--link-color);
+      transition: all 0.2s linear;
+    }
+    a:focus, a:hover {
+      color: var(--linkhover-color);
+    }
+    a.nohover:hover {
+      text-decoration: none;
+    }
+    
+    .claim-bar {
+      padding: 12px 0;
+      background: #fff;
+      color: #555;
+      font-family: "Oxygen", Helvetica, sans-serif;
+      transition: all 0.3s ease-in-out;
+    }
+    .claim-bar * {
+      font-family: "Oxygen", Helvetica, sans-serif;
+    }
+    .claim-bar div {
+      text-decoration: none;
+      transition: all 0.3s ease-in-out;
+      font-size: 0.9em;
+      cursor: pointer;
+      color: #555;
+    }
+    .claim-bar div span {
+      transition: all 0.3s ease-in-out;
+      color: #008DD5;
+    }
+    .claim-bar:hover {
+      text-decoration: none;
+      text-decoration: none;
+      background: #008DD5;
+      color: white;
+    }
+    .claim-bar:hover div {
+      color: white;
+    }
+    .claim-bar:hover div span {
+      color: white;
+    }
+    
+    .whitelabel-badge-mobile {
+      background: white;
+      padding-left: 0.75em;
+      padding-right: 0.75em;
+      padding-top: 0.25em;
+      padding-bottom: 0.25em;
+      border-radius: 4px;
+      text-align: center;
+      -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      transition: 0.2s all ease-in-out;
+    }
+    .whitelabel-badge-mobile .wl-label {
+      font-size: 0.8em;
+      color: #777;
+    }
+    .whitelabel-badge-mobile * {
+      transition: 0.2s all ease-in-out;
+    }
+    .whitelabel-badge-mobile .st0 {
+      fill: #1FAF84;
+    }
+    .whitelabel-badge-mobile:hover {
+      background: #1FAF84;
+    }
+    .whitelabel-badge-mobile:hover * {
+      color: white;
+    }
+    .whitelabel-badge-mobile:hover .st0 {
+      fill: #ffffff;
+    }
+    @media (min-width: 491px) {
+      .whitelabel-badge-mobile {
+        display: none;
+      }
+    }
+    
+    .promo-badge {
+      display: block;
+      position: relative;
+      background: white;
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+      text-align: left;
+      transition: 0.2s all ease-in-out;
+      cursor: pointer;
+    }
+    .promo-badge * {
+      font-family: "Oxygen", Helvetica, sans-serif;
+      transition: 0.2s all ease-in-out;
+      line-height: normal;
+      text-align: left;
+    }
+    .promo-badge .pb-loading-container {
+      padding: 0.5em;
+    }
+    .promo-badge .pb-loading-container .lds-ring {
+      display: inline-block;
+      position: relative;
+      width: 40px;
+      height: 40px;
+    }
+    .promo-badge .pb-loading-container .lds-ring div {
+      box-sizing: border-box;
+      display: block;
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      margin: 4px;
+      border: 4px solid #ddd;
+      border-radius: 50%;
+      animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+      border-color: #ddd transparent transparent transparent;
+    }
+    .promo-badge .pb-loading-container .lds-ring div:nth-child(1) {
+      animation-delay: -0.45s;
+    }
+    .promo-badge .pb-loading-container .lds-ring div:nth-child(2) {
+      animation-delay: -0.3s;
+    }
+    .promo-badge .pb-loading-container .lds-ring div:nth-child(3) {
+      animation-delay: -0.15s;
+    }
+    @keyframes lds-ring {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    .promo-badge .pb-main-container {
+      display: none;
+      flex-direction: row;
+    }
+    .promo-badge .pb-main-container .pb-text-container {
+      flex: 1;
+      padding-right: 0.5em;
+      align-self: center;
+    }
+    .promo-badge .pb-main-container .pb-text-container .pb-h1 span {
+      color: #555;
+      font-size: 1.2em;
+      margin-right: 0.2em;
+    }
+    .promo-badge .pb-main-container .pb-text-container .pb-h1 .pb-ios {
+      width: 16px;
+      height: 16px;
+      fill: #ccc;
+      margin-bottom: -1px;
+      display: none;
+    }
+    .promo-badge .pb-main-container .pb-text-container .pb-h1 .pb-android {
+      width: 15px;
+      height: 15px;
+      fill: #ccc;
+      stroke: #ccc;
+      margin-bottom: -1px;
+      display: none;
+    }
+    .promo-badge .pb-main-container .pb-text-container .pb-h2 {
+      color: #888;
+      font-size: 0.9em;
+      margin-top: -2px;
+    }
+    .promo-badge .pb-main-container .pb-text-container .pb-by {
+      font-size: 0.7em;
+      text-transform: uppercase;
+      text-align: left;
+      margin-top: 4px;
+    }
+    .promo-badge .pb-main-container .pb-text-container .pb-by a {
+      color: #aaa;
+    }
+    .promo-badge .pb-main-container .pb-text-container .pb-by a:hover {
+      color: #25d5a1;
+      text-decoration: none;
+    }
+    .promo-badge .pb-main-container img {
+      width: 58px;
+      height: 58px;
+      border-radius: 8px;
+      margin-right: 0.75em;
+      align-self: center;
+      border: none;
+      display: none;
+    }
+    @media (min-width: 600px) {
+      .promo-badge {
+        position: fixed;
+        z-index: 999999999;
+        top: 10px;
+        right: 10px;
+        border-radius: 8px;
+        -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      }
+    }
+    
+    footer {
+      background: #222;
+    }
+    footer .editing-active {
+      border-color: rgba(255, 255, 255, 0.8);
+    }
+    footer p {
+      color: #777 !important;
+    }
+    footer .social-icons {
+      background: #222;
+      width: auto;
+      display: inline-block;
+    }
+    footer .social-icons .social-icon {
+      transition: opacity 0.2s ease-in-out;
+      display: inline-block;
+      width: 32px;
+      margin-right: 12px;
+      opacity: 0.5;
+      padding-top: 30px;
+    }
+    footer .social-icons .social-icon path, footer .social-icons .social-icon polygon {
+      transition: all 0.2s linear;
+      fill: white;
+    }
+    footer .social-icons .social-icon:hover {
+      opacity: 1;
+    }
+    footer .social-icons .social-icon.si-muted {
+      border: 2px dashed rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+    }
+    footer .social-icons .social-icon.si-muted path, footer .social-icons .social-icon.si-muted polygon {
+      transition: all 0.2s linear;
+      fill: rgba(255, 255, 255, 0.3);
+    }
+    footer .social-icons.editing-active {
+      margin-top: 30px;
+      padding: 10px;
+      margin-left: -10px;
+    }
+    footer .social-icons.editing-active .social-icon {
+      padding-top: 0;
+    }
+    footer .footer-store-button-container {
+      text-align: right;
+      margin: auto;
+      vertical-align: middle;
+    }
+    @media (max-width: 767px) {
+      footer .footer-store-button-container {
+        text-align: center;
+      }
+    }
+    footer .footer-store-button-container .footer-store-button {
+      padding-top: 2em;
+      padding-bottom: 2em;
+      display: inline-block;
+    }
+    footer .footer-store-button-container .footer-store-button .store-button {
+      height: auto !important;
+      margin: 0 6px;
+    }
+    footer .footer-store-button-container .footer-store-button .store-button img {
+      height: 50px !important;
+    }
+    
+    #header .store-button img {
+      height: 60px !important;
+    }
+    
+    #attribution {
+      transition: all 0.2s ease-in-out;
+      padding: 2em 0;
+      font-size: 0.8em;
+      color: #888 !important;
+    }
+    #attribution p {
+      margin-bottom: 0.45em;
+      font-size: 1.1em;
+    }
+    #attribution a {
+      color: #aaa !important;
+      text-decoration: none;
+    }
+    #attribution a:hover {
+      color: #007bff !important;
+    }
+    
+    h1 {
+      font-size: 3.2em;
+      margin-bottom: 0;
+      font-weight: bold;
+      letter-spacing: 0.05em;
+    }
+    
+    h2 {
+      margin-top: 0.2em;
+      margin-bottom: 0.3em;
+      font-size: 1.8em;
+    }
+    
+    h3 {
+      font-weight: normal;
+      font-size: 16px;
+    }
+    
+    html {
+      height: 100%;
+    }
+    
+    body {
+      height: 100%;
+      color: var(--text-color);
+      text-align: center;
+    }
+    
+    .cover-container {
+      margin-right: auto;
+      margin-left: auto;
+    }
+    
+    .cover {
+      padding: 0 1.5rem;
+    }
+    .cover .btn-lg {
+      padding: 0.75rem 1.25rem;
+      font-weight: 700;
+    }
+    
+    p[id="text.line2"] {
+      margin-bottom: 0 !important;
+    }
+    
+    .site-wrapper {
+      position: relative;
+      background-size: cover;
+      min-height: 100vh;
+    }
+    .site-wrapper .editing-active {
+      border-color: var(--text-color);
+    }
+    .site-wrapper .site-wrapper-background {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      opacity: 0.9;
+      background-color: var(--background-color);
+    }
+    .site-wrapper .site-wrapper-inner {
+      padding-top: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      min-height: 100vh;
+    }
+    @media (min-width: 767px) {
+      .site-wrapper .site-wrapper-inner {
+        padding-top: 0;
+      }
+    }
+    .site-wrapper .site-wrapper-inner .arrows {
+      width: 60px;
+      height: 32px;
+      position: absolute;
+      left: 50%;
+      margin-left: -30px;
+      bottom: 15px;
+      opacity: 0.5;
+    }
+    @media (max-width: 786px) {
+      .site-wrapper .site-wrapper-inner .arrows {
+        display: none;
+      }
+    }
+    .site-wrapper .site-wrapper-inner .arrows path {
+      stroke: var(--text-color);
+      fill: transparent;
+      stroke-width: 2px;
+    }
+    
+    @media (min-width: 40em) {
+      .cover-container {
+        width: 100%;
+      }
+    }
+    @media (max-width: 786px) {
+      * {
+        text-align: center;
+      }
+    }
+    #header {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      margin: auto;
+      align-items: center;
+      justify-content: center;
+    }
+    #header .text-container {
+      text-align: left;
+      position: relative;
+      display: block;
+      padding-left: 2em;
+      padding-right: 2em;
+      flex: 1;
+      max-width: 800px;
+    }
+    #header .text-container .tc-table {
+      width: 100%;
+      display: table;
+      height: auto;
+      padding-bottom: 5em;
+      padding-top: 2em;
+    }
+    @media (min-width: 787px) {
+      #header .text-container .tc-table {
+        height: 100%;
+        padding-bottom: 0;
+      }
+    }
+    #header .text-container .tc-table .editing-ttp {
+      padding: 1em;
+      font-size: 1.2em;
+    }
+    #header .text-container .tc-table .editing-app-button {
+      font-style: italic;
+      padding: 0.25em;
+      font-size: 1.2em;
+      display: inline-block;
+      border-radius: 1em;
+    }
+    #header .text-container .tc-table .editing-app-button:first-of-type {
+      margin-right: 0.5em;
+    }
+    #header .text-container h1 {
+      font-size: 2em;
+      margin-bottom: 0.25em;
+      font-weight: bold;
+      letter-spacing: 0.05em;
+      line-height: 1.1em;
+    }
+    @media (min-width: 787px) {
+      #header .text-container h1 {
+        font-size: 3.2em;
+      }
+    }
+    #header .text-container h2 {
+      margin-top: 0.2em;
+      margin-bottom: 0.3em;
+      font-size: 1.3em;
+    }
+    @media (min-width: 787px) {
+      #header .text-container h2 {
+        font-size: 1.8em;
+      }
+    }
+    #header .device-container {
+      padding-bottom: 2em;
+      width: 100%;
+    }
+    #header .device-container img {
+      max-height: 70vh;
+      max-width: 90%;
+      position: relative;
+      margin-top: 5em;
+    }
+    @media (min-width: 787px) {
+      #header .device-container {
+        width: auto;
+        max-width: 40vw;
+        padding-bottom: 0;
+      }
+      #header .device-container img {
+        margin-top: 0;
+      }
+    }
+    
+    .store-button {
+      width: auto;
+      display: inline-block;
+    }
+    .store-button:first-of-type {
+      margin-right: 12px;
+    }
+    @media (max-width: 491px) {
+      .store-button:first-of-type {
+        margin-right: 0;
+        margin-bottom: 12px;
+      }
+    }
+    .store-button:hover {
+      transition: all 0.2s ease-in-out;
+      transform: scale(1.05);
+    }
+    .store-button svg {
+      width: auto;
+      height: 100%;
+      display: block;
+      position: relative;
+    }
+    @media (max-width: 768px) {
+      .store-button {
+        margin: auto;
+      }
+    }
+    
+    @media (max-width: 491px) {
+      .text-to-phone:not(.email-subscribe) {
+        display: none !important;
+      }
+    }
+    .text-to-phone input[type=tel], .text-to-phone input[type=email] {
+      transition: all 0.2s linear;
+      padding-top: 4px;
+      padding-bottom: 4px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      outline: none;
+      color: #333 !important;
+      text-align: left;
+    }
+    .text-to-phone input[type=tel]:focus, .text-to-phone input[type=email]:focus {
+      border-color: var(--link-color);
+    }
+    .text-to-phone input[type=email] {
+      padding-left: 12px;
+      width: 230px;
+    }
+    .text-to-phone button, .text-to-phone input[type=submit] {
+      border-radius: 4px;
+      background: var(--link-color);
+      color: white;
+      font-size: 14px;
+      border: 0;
+      padding: 6px 8px;
+      padding-top: 7px;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      outline: none;
+      cursor: pointer;
+    }
+    
+    section {
+      padding: 5em 0;
+      background: white;
+    }
+    section:not(.text-section) * {
+      color: #333;
+    }
+    section h2 {
+      font-size: 2.5em;
+      color: #333;
+      padding-bottom: 0.25em;
+      margin-bottom: 0;
+    }
+    
+    #screenshots .owl-nav {
+      padding-top: 3em;
+    }
+    #screenshots .owl-nav button {
+      outline: none;
+    }
+    #screenshots .owl-nav .owl-next, #screenshots .owl-nav .owl-prev {
+      font-size: 2em;
+    }
+    #screenshots .owl-nav .owl-next *, #screenshots .owl-nav .owl-prev * {
+      color: rgba(0, 0, 0, 0.25);
+    }
+    #screenshots .owl-nav .owl-prev {
+      margin-right: 1em;
+    }
+    #screenshots img {
+      border-radius: 0.5em;
+      -webkit-box-shadow: 2px 2px 10px -2px rgba(0, 0, 0, 0.49);
+      -moz-box-shadow: 2px 2px 10px -2px rgba(0, 0, 0, 0.49);
+      box-shadow: 2px 2px 5px -2px rgba(0, 0, 0, 0.49);
+    }
+    #screenshots h2 {
+      padding-bottom: 0.5em;
+      margin-bottom: 2em;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      display: inline-block;
+      padding-left: 2em;
+      padding-right: 2em;
+    }
+    @media (max-width: 767px) {
+      #screenshots h2 {
+        padding-left: 0;
+        padding-right: 0;
+        display: block;
+      }
+    }
+    
+    #features p {
+      font-size: 1.4em;
+    }
+    #features ul {
+      padding-left: 1em;
+      padding-top: 0.75em;
+    }
+    #features ul li {
+      list-style-type: circle;
+      font-size: 1.2em;
+      padding-bottom: 0.5em;
+    }
+    #features button {
+      transition: transform 0.2s ease-in-out;
+      padding: 0.75em 1.5em;
+      border: 0;
+      border-radius: 4px;
+      margin-top: 1em;
+      background-color: var(--background-color);
+      color: white;
+      cursor: pointer;
+    }
+    #features button:hover {
+      transform: scale(1.1);
+    }
+    #features .feature-right {
+      text-align: left;
+      padding-top: 2em;
+    }
+    #features .feature-left {
+      text-align: center;
+      padding-right: 0;
+    }
+    #features .feature-left img {
+      max-width: 100%;
+      max-height: 575px;
+    }
+    @media (min-width: 767px) {
+      #features .feature-left {
+        margin: auto;
+        padding-right: 40px;
+      }
+    }
+    @media (max-width: 767px) {
+      #features .feature-right {
+        padding-top: 4em;
+      }
+      #features ul {
+        padding-left: 0;
+      }
+      #features ul li {
+        list-style: none;
+      }
+    }
+    
+    #reviews .stars {
+      width: 100%;
+      padding-bottom: 1.5em;
+    }
+    #reviews .stars svg {
+      color: #eec643;
+      height: 34px;
+      width: 34px;
+    }
+    #reviews .stars svg path {
+      fill: #eec643;
+    }
+    #reviews #quote-carousel {
+      padding: 0 80px;
+    }
+    #reviews #quote-carousel .carousel-control svg {
+      width: 14px;
+    }
+    #reviews #quote-carousel .carousel-control path {
+      fill: #999;
+    }
+    #reviews #quote-carousel .carousel-indicators {
+      margin-bottom: -1em;
+    }
+    #reviews #quote-carousel .carousel-indicators li {
+      background: #c0c0c0;
+    }
+    #reviews #quote-carousel .carousel-indicators .active {
+      background: #666;
+    }
+    #reviews blockquote {
+      position: relative;
+      font-size: 1em;
+      font-style: italic;
+      color: #666;
+      padding: 0 5%;
+      margin-bottom: 0;
+    }
+    @media (min-width: 768px) {
+      #reviews blockquote {
+        font-size: 1.6em;
+        line-height: 1.5em;
+        padding: 0 10%;
+      }
+    }
+    #reviews blockquote footer {
+      background: none !important;
+      font-size: 0.6em;
+      font-weight: 700;
+      color: #c7c6c1;
+    }
+    #reviews blockquote footer:before {
+      content: "―";
+    }
+    
+    a.contact {
+      color: #999;
+    }
+    
+    a.contact:hover {
+      color: #fff;
+      text-decoration: none;
+    }
+    
+    @media (max-width: 767px) {
+      * {
+        text-align: center;
+      }
+    
+      section.text-section .col-xs-12 {
+        padding: 0 15px;
+      }
+    }
+    #dl-loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: white;
+      padding-top: 5em;
+      display: none;
+    }
+    #dl-loader .coffee_cup {
+      width: 20px;
+      height: 24px;
+      border: 1px #999 solid;
+      border-radius: 0px 0px 5px 5px;
+      position: relative;
+      margin: 12px auto;
+    }
+    #dl-loader .coffee_cup:after, #dl-loader .coffee_cup:before {
+      position: absolute;
+      content: "";
+    }
+    #dl-loader .coffee_cup:after {
+      width: 5px;
+      height: 12px;
+      border: 1px #999 solid;
+      border-left: none;
+      border-radius: 0px 20px 20px 0px;
+      left: 20px;
+    }
+    #dl-loader .coffee_cup:before {
+      width: 1px;
+      height: 6px;
+      background-color: #999;
+      top: -10px;
+      left: 4px;
+      box-shadow: 5px 0px 0px 0px #999, 5px -5px 0px 0px #999, 10px 0px 0px 0px #999;
+      -webkit-animation: steam 1s linear infinite alternate;
+      -moz-animation: steam 1s linear infinite alternate;
+      animation: steam 1s linear infinite alternate;
+    }
+    @-webkit-keyframes steam {
+      0% {
+        height: 0px;
+      }
+      100% {
+        height: 6px;
+      }
+    }
+    @-moz-keyframes steam {
+      0% {
+        height: 0px;
+      }
+      100% {
+        height: 6px;
+      }
+    }
+    @keyframes steam {
+      0% {
+        height: 0px;
+      }
+      100% {
+        height: 6px;
+      }
+    }
+    #dl-loader div {
+      color: #666;
+      font-size: 0.9em;
+    }</style>
+    <style>
+            .container {
+              padding-right: 15px;
+              padding-left: 15px;
+              margin-right: auto;
+              margin-left: auto;
+            }
+            @media (min-width: 768px) {
+              .container {
+                width: 750px;
+              }
+            }
+            @media (min-width: 992px) {
+              .container {
+                width: 970px;
+              }
+            }
+            @media (min-width: 1200px) {
+              .container {
+                width: 1170px;
+              }
+            }
+        </style>
+    <style id="global_style">:root {
+        --background-color: #004AC5;
+        --text-color: #ffffff;
+        --link-color: #EEC643;
+        --linkhover-color: #005A88;
+        --main-font: 'Oxygen';
+        --backgroundgradient: True;
+        --backgroundopacity: 0.9;
+    }
+    </style>
+    <style>
+            *{
+                -webkit-font-smoothing:antialiased;
+                -moz-osx-font-smoothing:grayscale
+            }
+            .main-container{
+                color:#222;
+                padding:2em 0;
+                padding-bottom:4em;
+                text-align:left!important;
+                padding:2em;
+                background:#fff;
+                min-height:400px;
+                -webkit-box-shadow:0 0 3px 0 rgba(0,0,0,.25);
+                -moz-box-shadow:0 0 3px 0 rgba(0,0,0,.25);
+                box-shadow:0 0 3px 0 rgba(0,0,0,.25)
+            }
+            .main-container *{
+                text-align:left!important
+            }
+            .main-container :not(a){
+                color:#222
+            }
+            .main-container #content p{
+                margin-top:1rem;
+                margin-bottom:1rem
+            }
+            a{
+                color:#009c9c
+            }
+            a:hover{
+                color:#007bff
+            }
+            h2{
+                font-size:1.2em
+            }
+            @media only screen and (max-width:600px){
+                h2{
+                    font-size:1.2em
+                }
+            }
+            a.nohover{
+                color:#fff;
+                text-decoration:none
+            }
+            @keyframes spin{
+                0%{
+                    transform:rotate(0)
+                }
+                100%{
+                    transform:rotate(360deg)
+                }
+            }
+            .fc123-promoclass{
+                padding:10px 20px;
+                cursor:pointer;
+                background:linear-gradient(to right bottom, #4BB3FD, #45A3E6);
+                color:#fff
+            }
+            .fc123-promoclass *{
+                font-family:system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+            }
+            .fc123-promoclass img{
+                display:inline-block;
+                margin-right:20px;
+                border-radius:8px;
+                max-height:50px
+            }
+            .fc123-promoclass .fc123-button{
+                padding:10px 30px;
+                border-radius:6px;
+                font-weight:700;
+                transition:all .2s ease-in-out;
+                cursor:pointer
+            }
+            .fc123-promoclass .fc123-button:hover{
+                background:#357ded
+            }
+            .fc123-promoclass h1{
+                width: 100%;
+                text-align:center;
+                font-size:1.8em;
+                margin:0
+            }
+            .fc123-promoclass h2{
+                text-align:center;
+                font-size:2em;
+                margin:0
+            }
+            .fc123-promoclass .subheader {
+                font-size:1.1em;
+            }
+            .fc123-pr{
+                font-size:.7em;
+                text-align:right;
+                margin-top:5px;
+                margin-bottom:5px;
+                opacity:.8;
+                margin-right:4px;
+                transition:all .2s ease-in-out
+            }
+            .fc123-pr:hover{
+                opacity:1
+            }
+             .fc123-promoclass .fc123-pc-action{
+                 display: inline-block;
+             }
+    
+            @media only screen and (max-width:768px){
+                .fc123-promoclass h2{
+                    font-size:1.6em
+                }
+                .fc123-promoclass .subheader {
+                    font-size:1.0em
+                }
+                .fc123-promoclass{
+                    text-align:center!important
+                }
+                .fc123-promoclass .fc123-pc-action{
+                    width: 100%;
+                }
+            }
+            @media only screen and (max-width:600px){
+                .fc123-promoclass h1{
+                    font-size:1.25em;
+                    text-align:center
+                }
+            }
+         </style>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="https://calculator-128.flycricket.io/privacy.html" property="og:url">
+    <meta content="website" property="og:type">
+    <meta content="Calculator - Privacy Policy" property="og:title">
+    <!-- <meta property="og:image" content="" /> -->
+    <meta content="" property="og:description">
+    <meta content="" name="description">
+    <title>Calculator - Privacy Policy</title>
+    <link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet">
+    </head>
+    <body style="background:#222;margin:0;">
+    <div style="background:#eee;">
+    <div class="container">
+    <div id="fc123-custom-area">
+    <a onclick="_fc_clicked()">
+    
+    </a>
+    <div class="fc123-pr">
+    
+    </div>
+    </div>
+    <div class="main-container">
+    <h2>
+                        
+                            Calculator
+                            
+                        &gt; Privacy Policy</h2>
+    <hr>
+    <div id="content"><div><strong>PRIVACY NOTICE</strong><br></div><div><div><br></div><div><strong><span>Last updated May 30, 2022</span></strong></div><div><br></div><div><br></div><div><br></div><div><span><span>This privacy notice for KB Team ('<strong>Company</strong>', '<strong>we</strong>', '<strong>us</strong>', or '<strong>our</strong>',</span><span>), describes how and why we might collect, store, use, and/or share ('<strong>process</strong>') your information when you use our services ('<strong>Services</strong>'), such as when you:</span></span><div></div><ul><li><span><span>Download and use our mobile application (<span>Calculator),</span></span> or any other application of ours that links to this privacy notice</span></li></ul><div></div><ul><li>Engage with us in other related ways, including any sales, marketing, or events</li></ul><div><span><strong>Questions or concerns?&nbsp;</strong>Reading this privacy notice will help you understand your privacy rights and choices. If you do not agree with our policies and practices, please do not use our Services. If you still have any questions or concerns, please contact us at kbgroup925@gmail.com.</span></div><div><br></div><div><br></div><div><strong>SUMMARY OF KEY POINTS</strong></div><div><br></div><div><strong><em>This summary provides key points from our privacy notice, but you can find out more details about any of these topics by clicking the link following each key point or by using our table of contents below to find the section you are looking for. You can also click&nbsp;</em></strong><a rel="nofollow" target="_blank"><strong><em>here</em></strong></a><strong><em>&nbsp;to go directly to our table of contents.</em></strong></div><div><br></div><div><span><strong>What personal information do we process?</strong> When you visit, use, or navigate our Services, we may process personal information depending on how you interact with KB Team and the Services, the choices you make, and the products and features you use. Click&nbsp;</span><a rel="nofollow" target="_blank">here</a>&nbsp;to learn more.</div><div><br></div><div><span><strong>Do we process any sensitive personal information?</strong> We do not process sensitive personal information.</span></div><div><br></div><div><span><strong>Do we receive any information from third parties?</strong> We do not receive any information from third parties.</span></div><div><br></div><div><span><strong>How do we process your information?</strong> We process your information to provide, improve, and administer our Services, communicate with you, for security and fraud prevention, and to comply with law. We may also process your information for other purposes with your consent. We process your information only when we have a valid legal reason to do so. Click&nbsp;</span><a rel="nofollow" target="_blank">here</a>&nbsp;to learn more.</div><div><br></div><div><span><strong>In what situations and with which parties do we share personal information?</strong> We may share information in specific situations and with specific third parties. Click&nbsp;</span><a rel="nofollow" target="_blank">here</a>&nbsp;to learn more.</div><div><br></div><div><span><strong>How do we keep your information safe?</strong> We have organizational and technical processes and procedures in place to protect your personal information. However, no electronic transmission over the internet or information storage technology can be guaranteed to be 100% secure, so we cannot promise or guarantee that hackers, cybercriminals, or other unauthorized third parties will not be able to defeat our security and improperly collect, access, steal, or modify your information. Click&nbsp;</span><a rel="nofollow" target="_blank">here</a>&nbsp;to learn more.</div><div><br></div><div><span><strong>What are your rights?</strong> Depending on where you are located geographically, the applicable privacy law may mean you have certain rights regarding your personal information. Click&nbsp;</span><a rel="nofollow" target="_blank">here</a>&nbsp;to learn more.</div><div><br></div><div><span><strong>How do I exercise my rights?</strong> The easiest way to exercise your rights is by filling out our data subject request form available </span><a href="https://app.termly.io/notify/ffc77133-52fe-4e65-a052-ea7d07565270" rel="nofollow" target="_blank">here</a>, or by contacting us. We will consider and act upon any request in accordance with applicable data protection laws.</div><div><br></div><div><span>Want to learn more about what KB Team does with any information we collect? Click&nbsp;</span><a rel="nofollow" target="_blank">here</a>&nbsp;to review the notice in full.</div><div><br></div><div><br></div><div><strong>TABLE OF CONTENTS</strong></div><div><br></div><div><a rel="nofollow" target="_blank">1. WHAT INFORMATION DO WE COLLECT?</a></div><div><a rel="nofollow" target="_blank">2. HOW DO WE PROCESS YOUR INFORMATION?</a></div><div><a rel="nofollow" target="_blank"><span>3. WHAT LEGAL BASES DO WE RELY ON TO PROCESS YOUR PERSONAL INFORMATION?</span></a></div><div><a rel="nofollow" target="_blank">4. WHEN AND WITH WHOM DO WE SHARE YOUR PERSONAL INFORMATION?</a></div><div><a rel="nofollow" target="_blank">5. WHAT IS OUR STANCE ON THIRD-PARTY WEBSITES?</a></div><div><a rel="nofollow" target="_blank">6. DO WE USE COOKIES AND OTHER TRACKING TECHNOLOGIES?</a></div><div><a rel="nofollow" target="_blank">7. HOW LONG DO WE KEEP YOUR INFORMATION?</a></div><div><a rel="nofollow" target="_blank">8. HOW DO WE KEEP YOUR INFORMATION SAFE?</a></div><div><a rel="nofollow" target="_blank">9. WHAT ARE YOUR PRIVACY RIGHTS?</a></div><div><a rel="nofollow" target="_blank">10. CONTROLS FOR DO-NOT-TRACK FEATURES</a></div><div><a rel="nofollow" target="_blank">11. DO CALIFORNIA RESIDENTS HAVE SPECIFIC PRIVACY RIGHTS?</a></div><div><a rel="nofollow" target="_blank">12. DO WE MAKE UPDATES TO THIS NOTICE?</a></div><div><a rel="nofollow" target="_blank">13. HOW CAN YOU CONTACT US ABOUT THIS NOTICE?</a></div><div><a rel="nofollow" target="_blank">14. HOW CAN YOU REVIEW, UPDATE, OR DELETE THE DATA WE COLLECT FROM YOU?</a></div><div><br></div><div><strong>1. WHAT INFORMATION DO WE COLLECT?</strong></div><div><br></div><div><strong>Personal information you disclose to us</strong></div><div><div><br></div><div><span><strong><em>In Short:</em></strong><span><strong><em>&nbsp;</em></strong><em>We collect personal information that you provide to us.</em></span></span></div></div><div><br></div><div><span>We collect personal information that you voluntarily provide to us when you express an interest in obtaining information about us or our products and Services, when you participate in activities on the Services, or otherwise when you contact us.</span></div><div><br></div><div></div><div><span><strong>Sensitive Information.</strong> We do not process sensitive information.</span></div><div><br></div><div> </div><div><span><strong>Application Data.</strong> If you use our application(s), we also may collect the following information if you choose to provide us with access or permission:</span><div><div><div></div><ul><li><span><em>Push Notifications.</em> We may request to send you push notifications regarding your account or certain features of the application(s). If you wish to opt out from receiving these types of communications, you may turn them off in your device's settings.</span></li></ul><div>This information is primarily needed to maintain the security and operation of our application(s), for troubleshooting, and for our internal analytics and reporting purposes.</div><div><br></div><div></div><div>All personal information that you provide to us must be true, complete, and accurate, and you must notify us of any changes to such personal information.</div><div><br></div><div></div><div><strong>Information automatically collected</strong></div><div><div><br></div><div><span><strong><em>In Short:</em></strong><span><strong><em>&nbsp;</em></strong><em>Some information — such as your Internet Protocol (IP) address and/or browser and device characteristics — is collected automatically when you visit our Services.</em></span></span></div></div><div><br></div><div>We automatically collect certain information when you visit, use, or navigate the Services. This information does not reveal your specific identity (like your name or contact information) but may include device and usage information, such as your IP address, browser and device characteristics, operating system, language preferences, referring URLs, device name, country, location, information about how and when you use our Services, and other technical information. This information is primarily needed to maintain the security and operation of our Services, and for our internal analytics and reporting purposes.</div><div><br></div><div></div><div>Like many businesses, we also collect information through cookies and similar technologies. </div><div><br></div><div></div><div>The information we collect includes:</div><ul><li><span><em>Log and Usage Data.</em> Log and usage data is service-related, diagnostic, usage, and performance information our servers automatically collect when you access or use our Services and which we record in log files. Depending on how you interact with us, this log data may include your IP address, device information, browser type, and settings and information about your activity in the Services&nbsp;(such as the date/time stamps associated with your usage, pages and files viewed, searches, and other actions you take such as which features you use), device event information (such as system activity, error reports (sometimes called 'crash dumps'), and hardware settings).</span></li></ul><div></div><ul><li><span><em>Device Data.</em> We collect device data such as information about your computer, phone, tablet, or other device you use to access the Services. Depending on the device used, this device data may include information such as your IP address (or proxy server), device and application identification numbers, location, browser type, hardware model, Internet service provider and/or mobile carrier, operating system, and system configuration information.</span></li></ul><div></div><ul><li><span><em>Location Data.</em> We collect location data such as information about your device's location, which can be either precise or imprecise. How much information we collect depends on the type and settings of the device you use to access the Services. For example, we may use GPS and other technologies to collect geolocation data that tells us your current location (based on your IP address). You can opt out of allowing us to collect this information either by refusing access to the information or by disabling your Location setting on your device. However, if you choose to opt out, you may not be able to use certain aspects of the Services.</span></li></ul><div></div><div><strong>2. HOW DO WE PROCESS YOUR INFORMATION?</strong></div><div><div><br></div><div><span><strong><em>In Short:&nbsp;</em></strong><em>We process your information to provide, improve, and administer our Services, communicate with you, for security and fraud prevention, and to comply with law. We may also process your information for other purposes with your consent.</em></span></div></div><div><br></div><div><strong>We process your personal information for a variety of reasons, depending on how you interact with our Services, including:</strong><div><div><div><div><div><div><div><div><p></p><p></p><p></p><p></p><div><div><div><div><div><div><div><div><div><div><div><div><div><div><div></div><ul><li><span><strong>To save or protect an individual's vital interest.</strong> We may process your information when necessary to save or protect an individual’s vital interest, such as to prevent harm.</span></li></ul><div></div><div><br></div><div><strong>3. WHAT LEGAL BASES DO WE RELY ON TO PROCESS YOUR INFORMATION?</strong></div><div><br></div><div><em><span><strong>In Short:&nbsp;</strong>We only process your personal information when we believe it is necessary and we have a valid legal reason (i.e. legal basis) to do so under applicable law, like with your consent, to comply with laws, to provide you with services to enter into or fulfil our contractual obligations, to protect your rights, or to fulfil our legitimate business interests.</span></em></div><div><br></div><div><em><strong><u>If you are located in the EU or UK, this section applies to you.</u></strong></em></div><div><br></div><div>The General Data Protection Regulation (GDPR) and UK GDPR require us to explain the valid legal bases we rely on in order to process your personal information. As such, we may rely on the following legal bases to process your personal information:</div><ul><li><span><strong>Consent.&nbsp;</strong>We may process your information if you have given us permission (i.e. consent) to use your personal information for a specific purpose. You can withdraw your consent at any time. Click&nbsp;</span><a rel="nofollow" target="_blank">here</a>&nbsp;to learn more.</li></ul><div><div></div><ul><li><span><strong>Legal Obligations.</strong> We may process your information where we believe it is necessary for compliance with our legal obligations, such as to cooperate with a law enforcement body or regulatory agency, exercise or defend our legal rights, or disclose your information as evidence in litigation in which we are involved.<br></span></li></ul><div></div><ul><li><span><strong>Vital Interests.</strong> We may process your information where we believe it is necessary to protect your vital interests or the vital interests of a third party, such as situations involving potential threats to the safety of any person.</span></li></ul><div></div><div><br></div><div><strong><u><em>If you are located in Canada, this section applies to you.</em></u></strong></div><div><br></div><div><span>We may process your information if you have given us specific permission (i.e. express consent) to use your personal information for a specific purpose, or in situations where your permission can be inferred (i.e. implied consent). You can withdraw your consent at any time. Click&nbsp;</span><a rel="nofollow" target="_blank">here</a>&nbsp;to learn more.</div><div><br></div><div>In some exceptional cases, we may be legally permitted under applicable law to process your information without your consent, including, for example:</div><ul><li>If collection is clearly in the interests of an individual and consent cannot be obtained in a timely way</li></ul><div></div><ul><li>For investigations and fraud detection and prevention</li></ul><div></div><ul><li>For business transactions provided certain conditions are met</li></ul><div></div><ul><li>If it is contained in a witness statement and the collection is necessary to assess, process, or settle an insurance claim</li></ul><div></div><ul><li>For identifying injured, ill, or deceased persons and communicating with next of kin</li></ul><div></div><ul><li>If we have reasonable grounds to believe an individual has been, is, or may be victim of financial abuse</li></ul><div></div><ul><li>If it is reasonable to expect collection and use with consent would compromise the availability or the accuracy of the information and the collection is reasonable for purposes related to investigating a breach of an agreement or a contravention of the laws of Canada or a province</li></ul><div></div><ul><li>If disclosure is required to comply with a subpoena, warrant, court order, or rules of the court relating to the production of records</li></ul><div></div><ul><li>If it was produced by an individual in the course of their employment, business, or profession and the collection is consistent with the purposes for which the information was produced</li></ul><div></div><ul><li>If the collection is solely for journalistic, artistic, or literary purposes</li></ul><div></div><ul><li>If the information is publicly available and is specified by the regulations</li></ul><div></div><div><br></div><div><strong>4. WHEN AND WITH WHOM DO WE SHARE YOUR PERSONAL INFORMATION?</strong></div><div><br></div><div><span><strong><em>In Short:</em></strong><em>&nbsp;We may share information in specific situations described in this section and/or with the following third parties.</em></span></div><div><br></div><div></div><div><br></div><div><span>We  may need to share your personal information in the following situations:</span></div><ul><li><span><strong>Business Transfers.</strong> We may share or transfer your information in connection with, or during negotiations of, any merger, sale of company assets, financing, or acquisition of all or a portion of our business to another company.</span></li></ul><div><div><div><div><div><div></div><div><br></div><div><strong>5. WHAT IS OUR STANCE ON THIRD-PARTY WEBSITES?</strong></div><div><br></div><div><span><strong><em>In Short:</em></strong><em>&nbsp;We are not responsible for the safety of any information that you share with third parties that we may link to or who advertise on our Services, but are not affiliated with, our Services.</em></span></div><div><br></div><div><span>The Services may link to third-party websites, online services, or mobile applications and/or contain advertisements from third parties that are not affiliated with us and which may link to other websites, services, or applications. Accordingly, we do not make any guarantee regarding any such third parties, and we will not be liable for any loss or damage caused by the use of such third-party websites, services, or applications. The inclusion of a link towards a third-party website, service, or application does not imply an endorsement by us. We cannot guarantee the safety and privacy of data you provide to any third parties. Any data collected by third parties is not covered by this privacy notice. We are not responsible for the content or privacy and security practices and policies of any third parties, including other websites, services, or applications that may be linked to or from the Services. You should review the policies of such third parties and contact them directly to respond to your questions.</span></div><div><br></div><div><strong>6. DO WE USE COOKIES AND OTHER TRACKING TECHNOLOGIES?</strong></div><div><br></div><div><span><strong><em>In Short:</em></strong><em>&nbsp;We may use cookies and other tracking technologies to collect and store your information.</em></span></div><div><br></div><div><span>We may use cookies and similar tracking technologies (like web beacons and pixels) to access or store information. Specific information about how we use such technologies and how you can refuse certain cookies is set out in our Cookie Notice.</span></div><div><br></div><div><strong>7. HOW LONG DO WE KEEP YOUR INFORMATION?</strong></div><div><br></div><div><span><strong><em>In Short:&nbsp;</em></strong><em>We keep your information for as long as necessary to fulfil the purposes outlined in this privacy notice unless otherwise required by law.</em></span></div><div><br></div><div><span>We will only keep your personal information for as long as it is necessary for the purposes set out in this privacy notice, unless a longer retention period is required or permitted by law (such as tax, accounting, or other legal requirements). No purpose in this notice will require us keeping your personal information for longer than 2 years.</span></div><div><br></div><div><span>When we have no ongoing legitimate business need to process your personal information, we will either delete or anonymise such information, or, if this is not possible (for example, because your personal information has been stored in backup archives), then we will securely store your personal information and isolate it from any further processing until deletion is possible.</span></div><div><br></div><div><strong>8. HOW DO WE KEEP YOUR INFORMATION SAFE?</strong></div><div><br></div><div><span><strong><em>In Short:&nbsp;</em></strong><em>We aim to protect your personal information through a system of organizational&nbsp;and technical security measures.</em></span></div><div><br></div><div><span>We have implemented appropriate and reasonable technical and organizational security measures designed to protect the security of any personal information we process. However, despite our safeguards and efforts to secure your information, no electronic transmission over the Internet or information storage technology can be guaranteed to be 100% secure, so we cannot promise or guarantee that hackers, cybercriminals, or other unauthorized third parties will not be able to defeat our security and improperly collect, access, steal, or modify your information. Although we will do our best to protect your personal information, transmission of personal information to and from our Services is at your own risk. You should only access the Services within a secure environment.</span></div><div><br></div><div><strong>9. WHAT ARE YOUR PRIVACY RIGHTS?</strong></div><div><br></div><div><span><strong><em>In Short:</em></strong><em>&nbsp;<em></em>In some regions, such as the European Economic Area (EEA), United Kingdom (UK), and Canada, you have rights that allow you greater access to and control over your personal information.<span><em></em>&nbsp;</span>You may review, change, or terminate your account at any time.</em></span></div><div><br></div><div><span>In some regions (like the EEA, UK, and Canada), you have certain rights under applicable data protection laws. These may include the right (i) to request access and obtain a copy of your personal information, (ii) to request rectification or erasure; (iii) to restrict the processing of your personal information; and (iv) if applicable, to data portability. In certain circumstances, you may also have the right to object to the processing of your personal information. You can make such a request by contacting us by using the contact details provided in the section '</span><a rel="nofollow" target="_blank">HOW CAN YOU CONTACT US ABOUT THIS NOTICE?</a><span>' below.</span></div><div><br></div><div>We will consider and act upon any request in accordance with applicable data protection laws.</div><div>&nbsp;</div><div><span>If you are located in the EEA or UK and you believe we are unlawfully processing your personal information, you also have the right to complain to your local data protection supervisory authority. You can find their contact details <a href="https://ec.europa.eu/justice/data-protection/bodies/authorities/index_en.htm" rel="nofollow" target="_blank">here</a>.</span></div><div><br></div><div><span>If you are located in Switzerland, the contact details for the data protection authorities are available <a href="https://www.edoeb.admin.ch/edoeb/en/home.html" rel="nofollow" target="_blank">here</a>.</span></div><div><br></div><div><span><strong><u>Withdrawing your consent:</u></strong> If we are relying on your consent to process your personal information, which may be express and/or implied consent depending on the applicable law, you have the right to withdraw your consent at any time. You can withdraw your consent at any time by contacting us by using the contact details provided in the section '</span><a rel="nofollow" target="_blank">HOW CAN YOU CONTACT US ABOUT THIS NOTICE?</a><span>' below.</span></div><div><br></div><div><span>However, please note that this will not affect the lawfulness of the processing before its withdrawal, nor when applicable law allows, will it affect the processing of your personal information conducted in reliance on lawful processing grounds other than consent.</span></div><div><br></div><div><span><strong><u>Cookies and similar technologies:</u></strong> Most Web browsers are set to accept cookies by default. If you prefer, you can usually choose to set your browser to remove cookies and to reject cookies. If you choose to remove cookies or reject cookies, this could affect certain features or services of our Services. To opt out of interest-based advertising by advertisers on our Services visit&nbsp;<a href="http://www.aboutads.info/choices/" rel="nofollow" target="_blank">http://www.aboutads.info/choices/</a>. </span></div><div><br></div><div><span>If you have questions or comments about your privacy rights, you may email us at kbgroup925@gmail.com.</span></div><div><br></div><div><strong>10. CONTROLS FOR DO-NOT-TRACK FEATURES</strong></div><div><br></div><div><span>Most web browsers and some mobile operating systems and mobile applications include a Do-Not-Track ('DNT') feature or setting you can activate to signal your privacy preference not to have data about your online browsing activities monitored and collected. At this stage no uniform technology standard for recognizing and implementing DNT signals has been finalized. As such, we do not currently respond to DNT browser signals or any other mechanism that automatically communicates your choice not to be tracked online. If a standard for online tracking is adopted that we must follow in the future, we will inform you about that practice in a revised version of this privacy notice.</span></div><div><br></div><div><strong>11. DO CALIFORNIA RESIDENTS HAVE SPECIFIC PRIVACY RIGHTS?</strong></div><div><br></div><div><span><strong><em>In Short:&nbsp;</em></strong><em>Yes, if you are a resident of California, you are granted specific rights regarding access to your personal information.</em></span></div><div><br></div><div><span>California Civil Code Section 1798.83, also known as the 'Shine The Light' law, permits our users who are California residents to request and obtain from us, once a year and free of charge, information about categories of personal information (if any) we disclosed to third parties for direct marketing purposes and the names and addresses of all third parties with which we shared personal information in the immediately preceding calendar year. If you are a California resident and would like to make such a request, please submit your request in writing to us using the contact information provided below.</span></div><div><br></div><div><span>If you are under 18 years of age, reside in California, and have a registered account with Services, you have the right to request removal of unwanted data that you publicly post on the Services. To request removal of such data, please contact us using the contact information provided below and include the email address associated with your account and a statement that you reside in California. We will make sure the data is not publicly displayed on the Services, but please be aware that the data may not be completely or comprehensively removed from all our systems (e.g. backups, etc.).</span></div><div><br></div><div><strong>CCPA Privacy Notice</strong></div><div><div><br></div><div><span>The California Code of Regulations defines a 'resident' as:</span></div></div><div><br></div><div>(1) every individual who is in the State of California for other than a temporary or transitory purpose and</div><div>(2) every individual who is domiciled in the State of California who is outside the State of California for a temporary or transitory purpose</div><div><br></div><div><span>All other individuals are defined as 'non-residents'.</span></div><div><br></div><div><span>If this definition of 'resident' applies to you, we must adhere to certain rights and obligations regarding your personal information.</span></div><div><br></div><div><strong>What categories of personal information do we collect?</strong></div><div><br></div><div>We have collected the following categories of personal information in the past twelve (12) months:</div><div><br></div><table><tbody><tr><td><strong>Category</strong></td><td><strong>Examples</strong></td><td><strong>Collected</strong></td></tr><tr><td><div>A. Identifiers</div></td><td><div>Contact details, such as real name, alias, postal address, telephone or mobile contact number, unique personal identifier, online identifier, Internet Protocol address, email address, and account name</div></td><td><div><br></div><div>NO</div><div><br></div></td></tr><tr><td><div>B. Personal information categories listed in the California Customer Records statute</div></td><td><div>Name, contact information, education, employment, employment history, and financial information</div></td><td><div><br></div><div>YES</div><div><br></div></td></tr><tr><td><div>C. Protected classification characteristics under California or federal law</div></td><td><div>Gender and date of birth</div></td><td><div><br></div><div>NO</div><div><br></div></td></tr><tr><td><div>D. Commercial information</div></td><td><div>Transaction information, purchase history, financial details, and payment information</div></td><td><div><br></div><div>NO</div><div><br></div></td></tr><tr><td><div>E. Biometric information</div></td><td><div>Fingerprints and voiceprints</div></td><td><div><br></div><div>NO</div><div><br></div></td></tr><tr><td><div>F. Internet or other similar network activity</div></td><td><div><span>Browsing history, search history, online behavior, interest data, and interactions with our and other websites, applications, systems, and advertisements</span></div></td><td><div><br></div><div>NO</div><div><br></div></td></tr><tr><td><div>G. Geolocation data</div></td><td><div>Device location</div></td><td><div><br></div><div>NO</div><div><br></div></td></tr><tr><td><div>H. Audio, electronic, visual, thermal, olfactory, or similar information</div></td><td><div>Images and audio, video or call recordings created in connection with our business activities</div></td><td><div><br></div><div>NO</div><div><br></div></td></tr><tr><td><div>I. Professional or employment-related information</div></td><td><div>Business contact details in order to provide you our services at a business level or job title, work history, and professional qualifications if you apply for a job with us</div></td><td><div><br></div><div>NO</div><div><br></div></td></tr><tr><td><div>J. Education Information</div></td><td><div>Student records and directory information</div></td><td><div><br></div><div>NO</div><div><br></div></td></tr><tr><td><div>K. Inferences drawn from other personal information</div></td><td><div>Inferences drawn from any of the collected personal information listed above to create a profile or summary about, for example, an individual’s preferences and characteristics</div></td><td><div><br></div><div>NO</div><div><br></div></td></tr></tbody></table><div></div><div><br></div><div>We may also collect other personal information outside of these categories instances where you interact with us in person, online, or by phone or mail in the context of:</div><ul><li>Receiving help through our customer support channels;</li></ul><div></div><ul><li>Participation in customer surveys or contests; and</li></ul><div></div><ul><li>Facilitation in the delivery of our Services and to respond to your inquiries.</li></ul><div><strong>How do we use and share your personal information?</strong></div><div><br></div><div><span>More information about our data collection and sharing practices can be found in this privacy notice.</span></div><div><br></div><div><span><span>You may contact us by email at&nbsp;</span><span>kbgroup925@gmail.com, </span></span>or by referring to the contact details at the bottom of this document.</div><div><br></div><div><span>If you are using an authorized agent to exercise your right to opt out we may deny a request if the authorized agent does not submit proof that they have been validly authorized to act on your behalf.</span></div><div><br></div><div><strong>Will your information be shared with anyone else?</strong></div><div><br></div><div>We may disclose your personal information with our service providers pursuant to a written contract between us and each service provider. Each service provider is a for-profit entity that processes the information on our behalf.</div><div><br></div><div><span>We may use your personal information for our own business purposes, such as for undertaking internal research for technological development and demonstration. This is not considered to be 'selling' of your personal information.</span></div><div><br></div><div><span>KB Team<span>&nbsp;has not disclosed or sold any personal information to third parties for a business or commercial purpose in the preceding twelve (12) months. <span>KB Team&nbsp;</span>will not sell personal information in the future belonging to website visitors, users, and other consumers.</span></span></div><div><br></div><div><strong>Your rights with respect to your personal data</strong></div><div><br></div><div><u>Right to request deletion of the data — Request to delete</u></div><div><br></div><div>You can ask for the deletion of your personal information. If you ask us to delete your personal information, we will respect your request and delete your personal information, subject to certain exceptions provided by law, such as (but not limited to) the exercise by another consumer of his or her right to free speech, our compliance requirements resulting from a legal obligation, or any processing that may be required to protect against illegal activities.</div><div><br></div><div><u>Right to be informed — Request to know</u></div><div><br></div><div>Depending on the circumstances, you have a right to know:</div><ul><li>whether we collect and use your personal information;</li></ul><div></div><ul><li>the categories of personal information that we collect;</li></ul><div></div><ul><li>the purposes for which the collected personal information is used;</li></ul><div></div><ul><li>whether we sell your personal information to third parties;</li></ul><div></div><ul><li>the categories of personal information that we sold or disclosed for a business purpose;</li></ul><div></div><ul><li>the categories of third parties to whom the personal information was sold or disclosed for a business purpose; and</li></ul><div></div><ul><li>the business or commercial purpose for collecting or selling personal information.</li></ul><div>In accordance with applicable law, we are not obligated to provide or delete consumer information that is de-identified in response to a consumer request or to re-identify individual data to verify a consumer request.</div><div><br></div><div><u>Right to Non-Discrimination for the Exercise of a Consumer’s Privacy Rights</u></div><div><br></div><div>We will not discriminate against you if you exercise your privacy rights.</div><div><br></div><div><u>Verification process</u></div><div><br></div><div><span>Upon receiving your request, we will need to verify your identity to determine you are the same person about whom we have the information in our system. These verification efforts require us to ask you to provide information so that we can match it with information you have previously provided us. For instance, depending on the type of request you submit, we may ask you to provide certain information so that we can match the information you provide with the information we already have on file, or we may contact you through a communication method (e.g. phone or email) that you have previously provided to us. We may also use other verification methods as the circumstances dictate.</span></div><div><br></div><div>We will only use personal information provided in your request to verify your identity or authority to make the request. To the extent possible, we will avoid requesting additional information from you for the purposes of verification. However, if we cannot verify your identity from the information already maintained by us, we may request that you provide additional information for the purposes of verifying your identity and for security or fraud-prevention purposes. We will delete such additionally provided information as soon as we finish verifying you.</div><div><br></div><div><u>Other privacy rights</u></div><div></div><ul><li>You may object to the processing of your personal information.</li></ul><div></div><ul><li>You may request correction of your personal data if it is incorrect or no longer relevant, or ask to restrict the processing of the information.</li></ul><div></div><ul><li><span>You can designate an authorized agent to make a request under the CCPA on your behalf. We may deny a request from an authorized agent that does not submit proof that they have been validly authorized to act on your behalf in accordance with the CCPA.</span></li></ul><div></div><ul><li>You may request to opt out from future selling of your personal information to third parties. Upon receiving an opt-out request, we will act upon the request as soon as feasibly possible, but no later than fifteen (15) days from the date of the request submission.</li></ul><div><span>To exercise these rights, you can contact us&nbsp;<span>by email at kbgroup925@gmail.com, </span></span>or by referring to the contact details at the bottom of this document. If you have a complaint about how we handle your data, we would like to hear from you.</div><div><br></div><div><strong>12. DO WE MAKE UPDATES TO THIS NOTICE?</strong></div><div><br></div><div><em><strong>In Short:&nbsp;</strong>Yes, we will update this notice as necessary to stay compliant with relevant laws.</em></div><div><br></div><div><span>We may update this privacy notice from time to time. The updated version will be indicated by an updated 'Revised' date and the updated version will be effective as soon as it is accessible. If we make material changes to this privacy notice, we may notify you either by prominently posting a notice of such changes or by directly sending you a notification. We encourage you to review this privacy notice frequently to be informed of how we are protecting your information.</span></div><div><br></div><div><strong>13. HOW CAN YOU CONTACT US ABOUT THIS NOTICE?</strong></div><div><br></div><div><span>If you have questions or comments about this notice, you may <span>email us at kbgroup925@gmail.com</span>&nbsp;or by post to:</span></div><div><br></div><div>KB Team</div><div>__________</div><div>__________</div><div>India</div><div><br></div><div><strong>14. HOW CAN YOU REVIEW, UPDATE, OR DELETE THE DATA WE COLLECT FROM YOU?</strong></div><div><br></div><div><span><span>Based on the applicable laws of your country, you may have the right to request access to the personal information we collect from you, change that information, or delete it in some circumstances. To request to review, update, or delete your personal information, please submit a request form by clicking&nbsp;</span><a href="https://app.termly.io/notify/ffc77133-52fe-4e65-a052-ea7d07565270" rel="nofollow" target="_blank">here</a></span>.</div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div>
+    </div>
+    </div>
+    </div>
+    <footer><footer>
+    <div class="container">
+    <div class="row">
+    <div class="col-xs-12 col-md-6" style="text-align:left;margin:auto;vertical-align:middle;">
+    <div class="social-icons">
+    </div>
+    
+    </div>
+    <div class="col-xs-12 col-md-6 footer-store-button-container">
+    </div>
+    </div>
+    </div>
+    </footer></footer>
+    <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=UA-84588334-7&amp;l=dataLayer&amp;cx=c"></script><script async="" src="https://www.googletagmanager.com/gtag/js"></script>
+    <script id="script_analytics">// $(function () {
+    // 	$.ajax({
+    // 		type: "POST",
+    // 		url: "https://app.flycricket.com/api/website_view/11c4ae2361af42078efc6936fe1cd035",
+    // 		dataType: 'json',
+    // 		contentType: 'application/json',
+    // 		data: JSON.stringify({ referrer: document.referrer }),
+    // 		success: function (resp) {
+    // 			console.log(resp);
+    // 		},
+    // 		error: function (xhr, ajaxOptions, thrownError) {
+    // 			console.error(thrownError);
+    // 		}
+    // 	});
+    // });
+    
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-84588334-7');
+    
+    
+    </script>
+    <script type="text/javascript">
+            const _fc_stage = window.location.href.startsWith('file://') || window.location.href.startsWith('http://') ? "local" : "prod";
+            const _fc_action = "dailyappdeals_app_1";
+            const _fc_app_url = "https://play.google.com/store/apps/details?id=com.dailyappdeals&referrer=utm_source%3Dflycricket%26utm_medium%3Dbanner_policy";
+    
+            function _fc_clicked() {
+                const params = {
+                    action: _fc_action,
+                    url: btoa(_fc_app_url),
+                    source: btoa(window.location.href),
+                }
+                const queryString = Object.keys(params).map(function (key) {
+                    return key + '=' + params[key]
+                }).join('&');
+                window.location.href = "https://v4s77pzm9j.execute-api.us-east-1.amazonaws.com/" + _fc_stage + "/click?" + queryString;
+            }
+    
+            console.log("Logging identifier:", _fc_action);
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", 'https://v4s77pzm9j.execute-api.us-east-1.amazonaws.com/' + _fc_stage + '/impression', true);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhr.send(JSON.stringify({
+                action: _fc_action,
+                source: btoa(window.location.href),
+            }));
+        </script>
+    
+    </body></html>
