@@ -163,6 +163,7 @@ google.com, pub-8866232963703481, DIRECT, f08c47fec0942fa0
 google.com, pub-3592305992937657, DIRECT, f08c47fec0942fa0
 google.com, pub-8676560598296682, DIRECT, f08c47fec0942fa0
 google.com, pub-7485972245523388, DIRECT, f08c47fec0942fa0
+google.com, pub-4572385462794337, DIRECT, f08c47fec0942fa0
 pubmatic.com, 161758, RESELLER, 5d62403b186f2ace
 pubmatic.com, 161759, RESELLER, 5d62403b186f2ace
 smartadserver.com, 4170-OB, RESELLER, 060d053dcf45cbf3
@@ -245,6 +246,9 @@ onetag.com, 61d88450bdb25bc, DIRECT
 onetag.com, 61d88450bdb25bc-OB, DIRECT
 outbrain.com, 00d7a71836fe7a9f2c02a679103ae591d9, DIRECT
 google.com, pub-6346866704322274, RESELLER, f08c47fec0942fa0
+
+
+
 
 
 
